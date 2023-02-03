@@ -75,6 +75,7 @@ const emits = defineEmits<{ (e: "update:modelValue", value: any): void }>();
 .form-column-item {
   width: 100%;
   ::v-deep(.el-date-editor) {
+    box-sizing: border-box;
     width: 100%;
     > .el-input__wrapper{
       display: flex;

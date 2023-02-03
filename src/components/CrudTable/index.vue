@@ -108,7 +108,7 @@ defineExpose({ tableRef: tableRef });
   <TableSearch :columns="tableColumns" @search="emits('search', $event)" @reset="emits('reset', $event)"></TableSearch>
   <div class="crud-operator" v-if="props.option.showAdd || props.option.leftSlot">
     <el-button v-if="props.option.showAdd" icon="plus" type="success" @click="clickAddRow">新增</el-button>
-    <slot v-if="props.option.leftSlot" name="table-left"></slot>
+    <slot v-if="props.option.leftSlot" name="tableLeft"></slot>
   </div>
   <el-table
     ref="tableRef"
@@ -167,8 +167,6 @@ defineExpose({ tableRef: tableRef });
 <style lang="scss" scoped>
 .crud-table {
   .crud-operator {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 20px;
   }
   ::v-deep(.el-table) {
