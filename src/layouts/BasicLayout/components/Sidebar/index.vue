@@ -5,6 +5,9 @@ import SideMenu from "./SideMenu.vue";
 const route = useRoute();
 const store = useSettingStore();
 const defaultActive: Ref<string> = ref("");
+watch(route, () => {
+  defaultActive.value = (route.name || "--") as string;
+});
 onMounted(() => {
   defaultActive.value = route.name as string;
 });
