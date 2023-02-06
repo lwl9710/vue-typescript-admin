@@ -36,15 +36,15 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         output: {
-          entryFileNames: "js/[name].[hash].js",
+          entryFileNames: "js/[name].[hash].bundle.js",
           chunkFileNames: ({ moduleIds }) => {
             const chunkFileName = moduleIds[moduleIds.length - 1];
             if(!chunkFileName.includes("/node_modules/") && /(index)\.[^.]+$/i.test(chunkFileName)) {
               const chhunkFilePaths = chunkFileName.split("/");
               const name = chhunkFilePaths[chhunkFilePaths.length - 2];
-              return `js/${ name[0].toLowerCase() + name.substring(1).replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`) }.[hash].js`;
+              return `js/${ name[0].toLowerCase() + name.substring(1).replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`) }.[hash].chunk.js`;
             } else {
-              return "js/[name].[hash].js";
+              return "js/[name].[hash].chunk.js";
             }
           },
           assetFileNames({ name }) {
@@ -60,7 +60,7 @@ export default defineConfig(({ mode }) => {
             if(/\.css$/i.test(name)) {
               return "css/[name].[hash].[ext]";
             }
-            return "[name].[hash].[ext]";
+            return "assets/[name].[hash].[ext]";
           },
           manualChunks: (filePath) => {
             if(/[\\/]element-plus[\\/]/i.test(filePath)) {
