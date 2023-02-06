@@ -41,8 +41,9 @@ export default defineConfig(({ mode }) => {
             const chunkFileName = moduleIds[moduleIds.length - 1];
             if(!chunkFileName.includes("/node_modules/") && /(index)\.[^.]+$/i.test(chunkFileName)) {
               const chhunkFilePaths = chunkFileName.split("/");
-              const name = chhunkFilePaths[chhunkFilePaths.length - 2];
-              return `js/${ name[0].toLowerCase() + name.substring(1).replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`) }.[hash].chunk.js`;
+              let name = chhunkFilePaths[chhunkFilePaths.length - 2];
+              name = name[0].toLowerCase() + name.substring(1).replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
+              return `js/${name}.[hash].chunk.js`;
             } else {
               return "js/[name].[hash].chunk.js";
             }
