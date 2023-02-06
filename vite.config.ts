@@ -67,17 +67,18 @@ export default defineConfig(({ mode }) => {
             if(/[\\/]pinia[\\/]/i.test(filePath)) {
               return "pinia";
             }
-            /* index文件取上级目录 */
-            const IndexVueFileRegExp = /[\\/](?<name>[^\\/]+)[\\/]index\.vue$/i;
-            const result = filePath.match(IndexVueFileRegExp);
-            if(result) {
-              const filename = result.groups.name[0].toLowerCase() + result.groups.name.substring(1).replace(/[A-Z]/g, letter => `-${ letter.toLowerCase() }`);
-              return filename;
-            }
             /* 其他依赖处理 */
             if(/[\\/]node_modules[\\/]/i.test(filePath)) {
               return "vendor";
             }
+            /* index文件取上级目录 */
+            // const IndexVueFileRegExp = /[\\/](?<name>[^\\/]+)[\\/]index\.vue$/i;
+            // const result = filePath.match(IndexVueFileRegExp);
+            // if(result) {
+            //   console.log(filePath);
+            //   const filename = result.groups.name[0].toLowerCase() + result.groups.name.substring(1).replace(/[A-Z]/g, letter => `-${ letter.toLowerCase() }`);
+            //   return filename;
+            // }
           }
         }
       }
