@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
           chunkFileNames: "js/[name]-[hash].js",
           entryFileNames: "js/[name]-[hash].js",
           assetFileNames({ name }) {
-            if(/\.(jpe?g|png|gif|webp|svg)$/i.test(name)) {
+            if(/\.(jpe?g|png|gif|webp)$/i.test(name)) {
               return "images/[name]-[hash].[ext]";
             }
             if(/\.svg$/i.test(name)) {
