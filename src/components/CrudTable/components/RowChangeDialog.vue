@@ -18,7 +18,7 @@ const emits = defineEmits<{
 
 const showDialog = ref(false);
 
-const rowData = ref({});
+const rowData = ref({} as StringObject);
 
 const rules:Ref<Record<string, any>> = ref({});
 

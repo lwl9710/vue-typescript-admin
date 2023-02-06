@@ -8,7 +8,7 @@ import TableSearch from "./components/TableSearch.vue";
 interface Emits {
   (e: "select" | "select-all" | "selection-change", v: any): void;
   (e: "search" | "reset", v: any): void;
-  (e: "current-change" | "size-change", v: number): void;
+  (e: "current-change" | "size-change" | "update:current-page" | "update:page-size", v: number): void;
   (e: "add-row" | "edit-row" | "del-row", rawData: any): void;
 }
 
@@ -101,6 +101,14 @@ const clickConfirm = (eventType: "add-row" | "edit-row", data: any) => {
   }
   emits(eventType, eventData);
 }
+const onCurrentPageUpdate = (currentPage: number) => {
+  emits("update:current-page", currentPage);
+  emits("current-change", currentPage);
+}
+const onPageSizeUpdate = (pageSize: number) => {
+  emits("update:page-size", pageSize);
+  emits("size-change", pageSize);
+}
 defineExpose({ tableRef: tableRef });
 </script>
 <template>
@@ -146,14 +154,14 @@ defineExpose({ tableRef: tableRef });
   </el-table>
   <div v-if="pagination" class="crud-pagination">
     <el-pagination
-        background
-        :current-page="props.currentPage"
-        :page-size="props.pageSize"
-        :page-sizes="props.pageSizes"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="props.total"
-        @size-change="emits('size-change', $event)"
-        @current-change="emits('current-change', $event)"
+      background
+      :current-page="props.currentPage"
+      :page-size="props.pageSize"
+      @update:current-page="onCurrentPageUpdate"
+      @update:page-size="onPageSizeUpdate"
+      :page-sizes="props.pageSizes"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="props.total"
     />
   </div>
   <RowChangeDialog

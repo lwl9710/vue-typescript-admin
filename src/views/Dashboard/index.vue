@@ -26,7 +26,10 @@ const onSearch = (data: any) => {
   console.log("触发搜索", data);
 }
 const onDelRow = (data: any) => {
-  console.log("删除行", data);
+  ElMessageBox.confirm("你确定要删除吗?")
+  .then(() => {
+    console.log("删除行", data);
+  });
 }
 
 const onEditRow = ({ data, done }: any) => {
@@ -44,6 +47,12 @@ function onSizeChange() {
 function onSelectChange(rows: any) {
   console.log("选中改变", rows);
 }
+function onCurrentChange() {
+  console.log("页码改变");
+};
+onMounted(() => {
+  ElMessage.success("页面加载成功");
+});
 </script>
 <template>
 <BasicContainer>
@@ -56,6 +65,7 @@ function onSelectChange(rows: any) {
     @delRow="onDelRow"
     @editRow="onEditRow"
     @addRow="onAddRow"
+    @current-change="onCurrentChange"
     @sizeChange="onSizeChange"
     @search="onSearch"
     @selection-change="onSelectChange"

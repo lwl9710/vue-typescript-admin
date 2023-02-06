@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 const emits = defineEmits<{ (e: 'search' | 'reset', v: any): void }>();
 let duplicate = {};
-const searchContent = ref({});
+const searchContent = ref({} as StringObject);
 const searchColumns = computed(() => {
   let columns = JSON.parse(JSON.stringify(props.columns))
       .filter((column: Column) => column.search)

@@ -34,7 +34,7 @@ const clickToRoute = (routeName: string) => {
     </template>
     <SideMenu v-for="menu in props.menu.children" :key="menu.name" :menu="menu"></SideMenu>
   </el-sub-menu>
-  <el-menu-item v-else-if="props.menu.children && props.menu.children.length === 1" :index="props.menu.children[0].name" @click="clickToRoute(props.menu.children[0].name)">
+  <el-menu-item v-else-if="props.menu.children && props.menu.children.length === 1" :index="props.menu.children[0].name" @click="clickToRoute((props.menu.children || [{ name: '' }])[0].name)">
     <IconSpan :icon="props.menu.children[0].meta.icon" :title="props.menu.children[0].meta.title"></IconSpan>
   </el-menu-item>
   <el-menu-item :index="props.menu.name" @click="clickToRoute(props.menu.name)" v-else>
