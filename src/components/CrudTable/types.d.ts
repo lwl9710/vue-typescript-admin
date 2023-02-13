@@ -3,8 +3,9 @@ export type DataType = "string" | "datetime" | "select" | "radio" | "file" | "da
 export interface Column {
   label: string;
   prop: string;
-  type?: string,
-  nativeType?: "text" | "textarea";
+  hide?: boolean;
+  type?: string;
+  nativeType?: "text" | "textarea" | "password";
   minlength?: number;
   maxlength?: number;
   showWordLimit?: boolean;

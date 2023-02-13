@@ -126,31 +126,29 @@ defineExpose({ tableRef: tableRef });
     @selection-change="emits('selection-change', $event)"
   >
     <el-table-column v-if="props.option.selection" type="selection" :selectable="props.option.selectable"></el-table-column>
-    <el-table-column
-      v-for="(column, index) in tableColumns"
-      :key="index"
-      v-bind="getTableColumnProp(column)"
-    >
-      <template v-if="column.headerSlot" #header="{ name, ...slotProps }">
-        <slot :name="column.prop + '-header'"></slot>
-      </template>
+    <template v-for="(column, index) in tableColumns" :key="index">
+      <el-table-column v-if="column.hide !== true" v-bind="getTableColumnProp(column)">
+        <template v-if="column.headerSlot" #header="{ name, ...slotProps }">
+          <slot :name="column.prop + '-header'"></slot>
+        </template>
 
-      <template v-if="column.slot" #default="{ name, ...slotProps }">
-        <slot :name="column.prop" v-bind="slotProps"></slot>
-      </template>
-      <template v-else-if="showOperator && column.prop === 'operator'" #default="{ name, ...slotProps }">
-        <el-button v-if="props.option.showEdit" @click="clickEditRow(slotProps)" icon="edit" link type="primary">编辑</el-button>
-        <el-button v-if="props.option.showDel" @click="emits('del-row', slotProps)" icon="delete" link type="danger">删除</el-button>
-        <slot name="operator" v-bind="slotProps"></slot>
-      </template>
-      <template v-else-if="column.dataType === 'datetime'" #default="{ row }">{{ formatDateTime(row[column.prop], column.valueFormat) || emptyValue }}</template>
-      <template v-else-if="column.selectList && column.multiple" #default = "{ row }">
-        {{ row[column.prop].map(key => column.dicData[key]).join(",") || emptyValue }}
-      </template>
-      <template v-else-if="column.selectList && !column.multiple" #default = "{ row }">
-        {{ column.dicData[row[column.prop]] || emptyValue }}
-      </template>
-    </el-table-column>
+        <template v-if="column.slot" #default="{ name, ...slotProps }">
+          <slot :name="column.prop" v-bind="slotProps"></slot>
+        </template>
+        <template v-else-if="showOperator && column.prop === 'operator'" #default="{ name, ...slotProps }">
+          <el-button v-if="props.option.showEdit" @click="clickEditRow(slotProps)" icon="edit" link type="primary">编辑</el-button>
+          <el-button v-if="props.option.showDel" @click="emits('del-row', slotProps)" icon="delete" link type="danger">删除</el-button>
+          <slot name="operator" v-bind="slotProps"></slot>
+        </template>
+        <template v-else-if="column.dataType === 'datetime'" #default="{ row }">{{ formatDateTime(row[column.prop], column.valueFormat) || emptyValue }}</template>
+        <template v-else-if="column.selectList && column.multiple" #default = "{ row }">
+          {{ row[column.prop].map(key => column.dicData[key]).join(",") || emptyValue }}
+        </template>
+        <template v-else-if="column.selectList && !column.multiple" #default = "{ row }">
+          {{ column.dicData[row[column.prop]] || emptyValue }}
+        </template>
+      </el-table-column>
+    </template>
   </el-table>
   <div v-if="pagination" class="crud-pagination">
     <el-pagination
