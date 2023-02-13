@@ -50,10 +50,3 @@ export interface Option {
   columns: Array<Column>;
   [prop: string]: any
 }
-
-export interface Pagination {
-  total?: number;
-  pageSize?: number;
-  pageSizes?: Array<number>;
-  currentPage?: number;
-}
